@@ -1,55 +1,68 @@
 import os
+from datetime import datetime
 import time
 import threading
-import _thread
-from subprocess import call
+
+#Pylapse v1.0
+
+Time_sleep=2
+Number_str=1
+def startup():
+    print("-----------------------------------------------------")
+    print("Pylapse OSX v0.1 https://github.com/Acollie/Py-lapse")
+    print("You are responsle for any damage done by this program")
+    print("-----------------------------------------------------")
+    try:
+        os.mkdir("Screenshots")
+
+    except:
+        print("Screenhots file already exists")
+
+    os.chdir("Screenshots")
+
+    Start=input("Start program yes/no \n")
 
 
-from tkinter import Tk, Label, Button
+    if Start=="yes" or Start=="y":
+        print("ok boss thread started")
+        print("Thread start ="+ datetime.now().strftime('%H:%M:%S'))
+        threads = []
+        Number_str = 0
 
-Sc_Number = 0
-Start = 0
-
-
-
-class GUI:
-    def __init__(self, master):
-        self.master = master
-        master.title("Py-Lapse")
-
-        self.label = Label(master, text="Click for screen shots")
-        self.label.pack()
-
-        self.greet_button = Button(master, text="Screenshot", command=self.greet)
-        self.greet_button.pack()
-
-        self.close_button = Button(master, text="Start Thread", command=self.Thread())
-        self.close_button.pack()
-    def greet(self):
-        global Start
-        Number_increase=1
-        Start += Number_increase
+        t = threading.Thread(target=sceencapfuc(),args=())
+        t.start()
+        kill = input("press q to quit")
+        if kill == 'q':
+            quit()
 
 
-        Number_str=str(Start)
-        os.system("screencapture test"+Number_str+ ".png")
-        print("Screenshot taken "+Number_str)
+    else:
 
-    def Screenshot(self):
-        global Start
-        Number_increase=1
-        Start += Number_increase
-
-
-        Number_str=str(Start)
-        os.system("screencapture test"+Number_str+ ".png")
-        print("Screenshot taken "+Number_str)
-        return
-    def Thread(self):
-        print("test")
+        print("exiting program \n")
+        print("Thread end ="+ datetime.now().strftime('%H:%M:%S'))
 
 
 
-root = Tk()
-my_gui = GUI(root)
-root.mainloop()
+def sceencapfuc():
+    Time_sleep = input("Please select number interval in seconds \n")
+
+
+
+    Time_sleep=int(Time_sleep)
+    Number_str=1
+
+    i=10
+    while i==10:
+
+        time.sleep(Time_sleep)
+        Number_str = str(Number_str)
+        os.system("screencapture -x test"+Number_str+ ".png")
+        Number_str=int(Number_str)
+        Number_str+=1
+
+    sceencapfuc()
+
+
+
+startup()
+
